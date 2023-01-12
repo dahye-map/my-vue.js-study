@@ -3,7 +3,7 @@
         <div class="nav">
             <ul>
                 <li><router-link to="/List">관리자 설정</router-link></li>
-                <li><a href="">권한 관리</a></li>
+                <li><a href="">권한 관리ㅇㅇ</a></li>
                 <li><a href="">안심전세 관리</a></li>
                 <li><a href="javascript:void(0)">법률상담 관리</a>
                     <ul class="depth-menu">
