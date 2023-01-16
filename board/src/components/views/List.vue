@@ -44,7 +44,7 @@
                     <p class="tit">조회기간</p>
                     <div class="input-wrap date">
                         <input type="date" id="" name="" title="조회 기간 시작 날짜" required="">
-                        <img src="../images/icon_hyphen@3x.png" alt="" class="hyphen">
+                        <img src="../../assets/images/icon_hyphen@3x.png" alt="" class="hyphen">
                         <input type="date" id="" name="" title="조회 기간 시작 날짜" required="">
                     </div>
                 </div>
@@ -92,50 +92,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
+                    <tr v-for="boardList in boardLists">
+                        <td>{{ boardList.id }}</td>
                         <td class="name">
-                            <a href="ADHG_05001000.html">주택경매 관련 문의가 있어요</a>
+                            <a href="#">{{ boardList.title }}</a>
                         </td>
                         <td>답변완료</td>
                         <td>2022.12.01</td>
                         <td>2022.12.02</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td class="name">
-                            <a href="ADHG_05001000.html">법률상담이 필요해요</a>
-                        </td>
-                        <td>임시저장</td>
-                        <td>2022.12.01</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td class="name">
-                            <a href="ADHG_05001000.html">전세자금사기 당했는데 대처법 알려주세요</a>
-                        </td>
-                        <td>답변대기</td>
-                        <td>2022.12.01</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td class="name">
-                            <a href="ADHG_05001000.html">전세계약 시 법적으로 인지해야 할 부분이 있는지 알고싶습니다</a>
-                        </td>
-                        <td>게시요청</td>
-                        <td>2022.12.01</td>
-                        <td>2022.12.02</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td class="name">
-                            <a href="ADHG_05001000.html">법률상담이 필요해요</a>
-                        </td>
-                        <td>임시저장</td>
-                        <td>2022.12.01</td>
-                        <td>-</td>
                     </tr>
                 </tbody>
             </table>
@@ -153,11 +117,33 @@
             <button type="button" class="btn btn-next02"><span class="blind">5페이지 후로 가기</span></button>
         </div>
     </section>
+
 </template>
 
 <script>
 export default {
     name: "List",
     components: {},
+    data() {
+        return {
+            boardLists: []
+        }
+    },
+    mounted() {
+        this.getBoardList();
+    },
+    methods: {
+        getBoardList: function () {
+            var vm = this;
+            this.axios.get('https://jsonplaceholder.typicode.com/posts')
+                .then(function (response) {
+                    console.log(response);
+                    vm.boardLists = response.data
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    }
 }
 </script>
