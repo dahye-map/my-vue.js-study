@@ -70,36 +70,54 @@
         <div class="table-wrap">
             <div class="table-top">
                 <div class="total-num">
-                    총 <span>25</span>건
+                    총 <span>100</span>건
+                </div>
+                <div class="btn-wrap right">
+                    <button type="button" class="btn btn-consult" >대량배정</button>
+                    <button type="button" class="btn btn-consult" >대량반려</button>
                 </div>
             </div>
+            <!-- 제목 한 줄로(말줄임) 필요 시 name 클래스에 ellipsis 클래스 추가 -->
             <table>
-                <caption>순번, 상담제목, 상담상태, 상담요청일, 답변일자로 구성됨</caption>
+                <caption>순번, 상담제목, 상담상태, 변호사, 상담요청일, 배정일자 답변일자로 구성됨</caption>
                 <colgroup>
+                    <col width="80px">
                     <col width="100px">
                     <col width="*">
-                    <col width="180px">
-                    <col width="200px">
-                    <col width="200px">
+                    <col width="100px">
                 </colgroup>
                 <thead>
                     <tr>
+                        <th>
+                            <div class="common-check all-chk">
+                                <label>
+                                    <input type="checkbox" name="chk">
+                                    <span class="blind">전체선택</span>
+                                </label>
+                            </div>
+                        </th>
                         <th>순번</th>
                         <th>상담제목</th>
-                        <th>상담상태</th>
-                        <th>상담요청일</th>
-                        <th>답변일자</th>
+                        <th>비고</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="boardList in boardLists">
+                        <td>
+                            <div class="common-check each-chk">
+                                <label>
+                                    <input type="checkbox" name="chk" >
+                                    <span class="blind">순번1</span>
+                                </label>
+                            </div>
+                        </td>
                         <td>{{ boardList.id }}</td>
                         <td class="name">
                             <a href="#">{{ boardList.title }}</a>
                         </td>
-                        <td>답변완료</td>
-                        <td>2022.12.01</td>
-                        <td>2022.12.02</td>
+                        <td>
+                            <a href="javascript:void(0)" class="btn btn-more" @click="showTable">상세보기</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -118,15 +136,56 @@
         </div>
     </section>
 
+
+    <!-- s:하단 상세보기 -->
+    <section class="section more-view-wrap" v-if="show">
+        <div class="table-wrap type03">
+            <div class="btn-wrap right">
+                <button type="button" class="btn add close" @click="hideTable">닫기</button>
+            </div>
+            <table>
+                <caption>상담제목, 상담요청일, 상담내용으로 구성됨</caption>
+                <colgroup>
+                    <col width="280px">
+                    <col width="*">
+                    <col width="280px">
+                    <col width="*">
+                </colgroup>
+
+                <tbody>
+                    <tr>
+                        <th>상담제목</th>
+                        <td>
+                            <input type="text"  class="name" value="" readonly="">
+                        </td>
+                        <th>상담요청일</th>
+                        <td class="date">
+                            2022.11.28
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>상담내용</th>
+                        <td colspan="3">
+                            <div class="textarea-wrap readonly">
+                                <textarea name="inquiry" id="" cols="30" rows="10" readonly="">dd</textarea>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <!-- //e:하단 상세보기 -->
+
 </template>
 
 <script>
 export default {
     name: "List",
-    components: {},
     data() {
         return {
-            boardLists: []
+            boardLists: [],
+            show: false,
         }
     },
     mounted() {
@@ -143,7 +202,14 @@ export default {
                 .catch(function (error) {
                     console.log(error);
                 });
+        },
+        showTable() {
+            this.show = true;
+        },
+        hideTable() {
+            this.show = false;
         }
+
     }
 }
 </script>

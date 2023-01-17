@@ -197,5 +197,5 @@ input[type='radio']:checked:disabled{background:url('../images/input_radio_DS.pn
 .layerpop-wrap .table-wrap.scroll { height:360px; overflow-y:scroll; }
 
 /* 하단 상세보기 */
-.more-view-wrap { display:none; }
-.more-view-wrap.active { display:block; }
+/* .more-view-wrap { display:none; }
+.more-view-wrap.active { display:block; } */
