@@ -78,7 +78,8 @@
                 </div>
             </div>
             <!-- 제목 한 줄로(말줄임) 필요 시 name 클래스에 ellipsis 클래스 추가 -->
-            <table>
+            <table
+            @row-clicked="rowClick">
                 <caption>순번, 상담제목, 상담상태, 변호사, 상담요청일, 배정일자 답변일자로 구성됨</caption>
                 <colgroup>
                     <col width="80px">
@@ -114,9 +115,12 @@
                         <td>{{ boardList.id }}</td>
                         <td class="name">
                             <a href="#">{{ boardList.title }}</a>
+                            
                         </td>
                         <td>
-                            <a href="javascript:void(0)" class="btn btn-more" @click="showTable">상세보기</a>
+                            <a href="javascript:void(0)" class="btn btn-more" @click="showTable(index)">상세보기
+                                <!-- <span class="blind txt">{{ boardList.body }}</span> -->
+                            </a>
                         </td>
                     </tr>
                 </tbody>
@@ -166,8 +170,8 @@
                     <tr>
                         <th>상담내용</th>
                         <td colspan="3">
-                            <div class="textarea-wrap readonly">
-                                <textarea name="inquiry" id="" cols="30" rows="10" readonly="">dd</textarea>
+                            <div class="textarea-wrap readonly" v-for="boardList in boardLists.data"  :key="`ct-menu-${idx}`">
+                                <textarea name="inquiry" id="" cols="30" rows="10" readonly="">{{ boardList[idx] }}</textarea>
                             </div>
                         </td>
                     </tr>
@@ -208,6 +212,12 @@ export default {
         },
         hideTable() {
             this.show = false;
+        },
+        rowClick(item, index, e){
+            this.$router.push({
+              name:'Detail',
+              params:{contentId : item.content_id}
+            })
         }
 
     }
