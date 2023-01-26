@@ -78,7 +78,7 @@
                 </div>
             </div>
             <!-- 제목 한 줄로(말줄임) 필요 시 name 클래스에 ellipsis 클래스 추가 -->
-            <table @row-clicked="rowClick">
+            <table>
                 <caption>순번, 상담제목, 상담상태, 변호사, 상담요청일, 배정일자 답변일자로 구성됨</caption>
                 <colgroup>
                     <col width="80px">
@@ -102,6 +102,8 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- boardList : 해당 열의 추출 값
+                    boardLists : 해당 열의 index -->
                     <tr v-for="(boardList, boardLists) in calData" :key="index">
                         <td>
                             <div class="common-check each-chk">
@@ -117,9 +119,7 @@
 
                         </td>
                         <td>
-                            <a href="javascript:void(0)" class="btn btn-more" @click="showTable(index); onEdit(index)">상세보기
-                                <!-- <span class="blind txt">{{ boardList.body }}</span> -->
-                            </a>
+                            <a href="javascript:void(0)" class="btn btn-more" @click="showTable(); onEdit(boardLists)">상세보기</a>
                         </td>
                     </tr>
                 </tbody>
@@ -143,7 +143,7 @@
 
 
     <!-- s:하단 상세보기 -->
-    <section class="section more-view-wrap" v-if="show">
+    <section class="section" v-if="show">
         <div class="table-wrap type03">
             <div class="btn-wrap right">
                 <button type="button" class="btn add close" @click="hideTable">닫기</button>
@@ -171,10 +171,8 @@
                     <tr>
                         <th>상담내용</th>
                         <td colspan="3">
-                            <div class="textarea-wrap readonly" v-for="boardList in boardLists.data"
-                                :key="`ct-menu-${idx}`">
-                                <textarea name="inquiry" id="" cols="30" rows="10"
-                                    readonly="">{{ boardList[idx] }}</textarea>
+                            <div class="textarea-wrap readonly">
+                                <textarea name="inquiry" id="" cols="30" rows="10" readonly="" v-model="selectedData.body"></textarea>
                             </div>
                         </td>
                     </tr>
@@ -192,7 +190,6 @@ export default {
     data() {
         return {
             boardLists: [],
-            searchData: [],
             show: false,
             dataPerPage: 10,
             curPageNum: 1,
@@ -226,13 +223,6 @@ export default {
         hideTable() {
             this.show = false;
         },
-        rowClick(item, index, e) {
-            console.log('ddd')
-            this.$router.push({
-                name: 'Detail',
-                params: { contentId: item.content_id }
-            })
-        },
         goPage(index) {
             this.curPageNum = index;
         },
@@ -251,9 +241,7 @@ export default {
                 alert('마지막 페이지입니다.');
             }
         },
-        
         onEdit(index) {
-            console.log(this.boardLists[this.curSelectIndex].title)
             this.curSelectIndex = this.calIndex(index);
             this.selectedData.title = this.boardLists[this.curSelectIndex].title;
             this.selectedData.body = this.boardLists[this.curSelectIndex].body;

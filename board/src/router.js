@@ -5,6 +5,11 @@ import List from './components/views/List.vue'
 const routes = [
   // 상담배정 내역조회
   {
+    path: '/',
+    name: 'app',
+    component: List,
+  },
+  {
     path: '/List',
     name: 'List',
     component: List,
