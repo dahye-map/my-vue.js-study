@@ -73,13 +73,12 @@
                     총 <span>100</span>건
                 </div>
                 <div class="btn-wrap right">
-                    <button type="button" class="btn btn-consult" >대량배정</button>
-                    <button type="button" class="btn btn-consult" >대량반려</button>
+                    <button type="button" class="btn btn-consult">대량배정</button>
+                    <button type="button" class="btn btn-consult">대량반려</button>
                 </div>
             </div>
             <!-- 제목 한 줄로(말줄임) 필요 시 name 클래스에 ellipsis 클래스 추가 -->
-            <table
-            @row-clicked="rowClick">
+            <table @row-clicked="rowClick">
                 <caption>순번, 상담제목, 상담상태, 변호사, 상담요청일, 배정일자 답변일자로 구성됨</caption>
                 <colgroup>
                     <col width="80px">
@@ -103,11 +102,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="boardList in boardLists">
+                    <tr v-for="(boardList, boardLists) in calData" :key="index">
                         <td>
                             <div class="common-check each-chk">
                                 <label>
-                                    <input type="checkbox" name="chk" >
+                                    <input type="checkbox" name="chk">
                                     <span class="blind">순번1</span>
                                 </label>
                             </div>
@@ -115,10 +114,10 @@
                         <td>{{ boardList.id }}</td>
                         <td class="name">
                             <a href="#">{{ boardList.title }}</a>
-                            
+
                         </td>
                         <td>
-                            <a href="javascript:void(0)" class="btn btn-more" @click="showTable(index)">상세보기
+                            <a href="javascript:void(0)" class="btn btn-more" @click="showTable(index); onEdit(index)">상세보기
                                 <!-- <span class="blind txt">{{ boardList.body }}</span> -->
                             </a>
                         </td>
@@ -127,17 +126,19 @@
             </table>
         </div>
 
-        <div class="paging-wrap">
-            <button type="button" class="btn btn-prev02"><span class="blind">5페이지 전으로 가기</span></button>
-            <button type="button" class="btn btn-prev"><span class="blind">1페이지 전으로 가기</span></button>
+        <v-pagination class="paging-wrap" v-model="curPageNum" :length="numOfPages">
+            <!-- <button type="button" class="btn btn-prev02"><span class="blind">5페이지 전으로 가기</span></button> -->
+            <button type="button" class="btn btn-prev" @click="prevPage()"><span class="blind">1페이지 전으로
+                    가기</span></button>
             <div class="num">
-                <a href="" class="active">1</a>
-                <a href="">2</a>
-                <a href="">3</a>
+                <a href="javascript:void(0)" v-for="numOfPage in numOfPages" @click="goPage(numOfPage)">{{
+                    numOfPage
+                }}</a>
             </div>
-            <button type="button" class="btn btn-next"><span class="blind">1페이지 후로 가기</span></button>
-            <button type="button" class="btn btn-next02"><span class="blind">5페이지 후로 가기</span></button>
-        </div>
+            <button type="button" class="btn btn-next" @click="nextPage()"><span class="blind">1페이지 후로
+                    가기</span></button>
+            <!-- <button type="button" class="btn btn-next02"><span class="blind">5페이지 후로 가기</span></button> -->
+        </v-pagination>
     </section>
 
 
@@ -160,7 +161,7 @@
                     <tr>
                         <th>상담제목</th>
                         <td>
-                            <input type="text"  class="name" value="" readonly="">
+                            <input type="text" class="name" readonly="" v-model="selectedData.title">
                         </td>
                         <th>상담요청일</th>
                         <td class="date">
@@ -170,8 +171,10 @@
                     <tr>
                         <th>상담내용</th>
                         <td colspan="3">
-                            <div class="textarea-wrap readonly" v-for="boardList in boardLists.data"  :key="`ct-menu-${idx}`">
-                                <textarea name="inquiry" id="" cols="30" rows="10" readonly="">{{ boardList[idx] }}</textarea>
+                            <div class="textarea-wrap readonly" v-for="boardList in boardLists.data"
+                                :key="`ct-menu-${idx}`">
+                                <textarea name="inquiry" id="" cols="30" rows="10"
+                                    readonly="">{{ boardList[idx] }}</textarea>
                             </div>
                         </td>
                     </tr>
@@ -189,7 +192,16 @@ export default {
     data() {
         return {
             boardLists: [],
+            searchData: [],
             show: false,
+            dataPerPage: 10,
+            curPageNum: 1,
+            numOfPages: 1,
+            curSelectIndex: 0,
+            selectedData: {
+                title: '',
+                body: ''
+            }
         }
     },
     mounted() {
@@ -200,26 +212,76 @@ export default {
             var vm = this;
             this.axios.get('https://jsonplaceholder.typicode.com/posts')
                 .then(function (response) {
-                    console.log(response);
+                    // console.log(response);
                     vm.boardLists = response.data
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    // console.log(error);
                 });
         },
-        showTable() {
+        showTable(index) {
             this.show = true;
+            console.log(index)
         },
         hideTable() {
             this.show = false;
         },
-        rowClick(item, index, e){
+        rowClick(item, index, e) {
+            console.log('ddd')
             this.$router.push({
-              name:'Detail',
-              params:{contentId : item.content_id}
+                name: 'Detail',
+                params: { contentId: item.content_id }
             })
+        },
+        goPage(index) {
+            this.curPageNum = index;
+        },
+        prevPage() {
+            if (this.curPageNum > 1) {
+                this.curPageNum--;
+            } else {
+                alert('첫 번째 페이지입니다.')
+            }
+        },
+        nextPage() {
+            if (this.dataPerPage > this.curPageNum) {
+                this.curPageNum++;
+                
+            } else {
+                alert('마지막 페이지입니다.');
+            }
+        },
+        
+        onEdit(index) {
+            console.log(this.boardLists[this.curSelectIndex].title)
+            this.curSelectIndex = this.calIndex(index);
+            this.selectedData.title = this.boardLists[this.curSelectIndex].title;
+            this.selectedData.body = this.boardLists[this.curSelectIndex].body;
+        },
+        calIndex(index) {
+            switch (this.curPageNum) {
+                case 1:
+                    return index;
+                    break;
+                default:
+                    return index + ((this.curPageNum - 1) * this.dataPerPage);
+                    break;
+            }
+        },
+    },
+    computed: {
+        startOffset() {
+            return ((this.curPageNum - 1) * this.dataPerPage);
+        },
+        endOffset() {
+            return (this.startOffset + this.dataPerPage);
+        },
+        numOfPages() {
+            return Math.ceil(this.boardLists.length / this.dataPerPage);
+        },
+        calData() {
+            return this.boardLists.slice(this.startOffset, this.endOffset)
         }
-
     }
 }
 </script>

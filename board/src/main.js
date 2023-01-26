@@ -10,7 +10,7 @@ import './assets/css/common.css'
 const app = createApp(App);
 
 app.use(router); // 사용 설정 하기
-app.use(VueAxios, axios)
+app.use(VueAxios, axios);
 app.mount('#app');
 
 app.config.globalProperties.axios = axios;
