@@ -131,9 +131,7 @@
             <button type="button" class="btn btn-prev" @click="prevPage()"><span class="blind">1페이지 전으로
                     가기</span></button>
             <div class="num">
-                <a href="javascript:void(0)" v-for="numOfPage in numOfPages" @click="goPage(numOfPage)">{{
-                    numOfPage
-                }}</a>
+                <a href="javascript:void(0)" v-for="numOfPage in numOfPages" @click="goPage(numOfPage)">{{ numOfPage }}</a>
             </div>
             <button type="button" class="btn btn-next" @click="nextPage()"><span class="blind">1페이지 후로
                     가기</span></button>
