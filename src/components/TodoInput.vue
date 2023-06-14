@@ -2,31 +2,52 @@
   <div class="input-box shadow">
     <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
     <span v-on:click="addTodo" class="btn-add"><i class="fas fa-plus"></i></span>
+
+    <Modal v-if="showModal" @close="showModal = false">
+      <!--
+        특정 컴포넌트에 재정의 가능 : slot
+      -->
+      <h3 slot="header">경고!</h3>
+      <div slot="body">무언가를 입력하세요.</div>
+      <div slot="footer">
+        copyright
+        <button class="modal-default-button" @click="$emit('close')">
+          OK
+        </button>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from './common/Modal.vue';
+
 export default {
   data: function() {
     return {
       //데이터 연동
-      newTodoItem: ""
+      newTodoItem: "",
+      showModal: false
     }
   },
   methods: {
     addTodo: function() {
       // newTodoItem이 무조건 값이 있을 때
       if(this.newTodoItem !== '') {
-        var obj = {completed: false, item: this.newTodoItem};
-        // 저장하는 로직
-        //obj 해당 값이 string 으로 들어간다.
-        localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+        //상위로 보냄
+        this.$emit("addTodoItem", this.newTodoItem)
         this.clearInput();
+      } else {
+        //값이 없을 때 모달 띄우기
+        this.showModal = !this.showModal;
       }
     },
     clearInput: function() {
       this.newTodoItem = '';
     }
+  },
+  components: {
+    Modal: Modal,
   }
 }
 </script>
