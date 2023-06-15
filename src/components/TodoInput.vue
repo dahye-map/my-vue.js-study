@@ -9,12 +9,6 @@
       -->
       <h3 slot="header">경고!</h3>
       <div slot="body">무언가를 입력하세요.</div>
-      <div slot="footer">
-        copyright
-        <button class="modal-default-button" @click="$emit('close')">
-          OK
-        </button>
-      </div>
     </Modal>
   </div>
 </template>
@@ -23,7 +17,7 @@
 import Modal from './common/Modal.vue';
 
 export default {
-  data: function() {
+  data() {
     return {
       //데이터 연동
       newTodoItem: "",
@@ -31,7 +25,7 @@ export default {
     }
   },
   methods: {
-    addTodo: function() {
+    addTodo() {
       // newTodoItem이 무조건 값이 있을 때
       if(this.newTodoItem !== '') {
         //상위로 보냄
@@ -42,12 +36,12 @@ export default {
         this.showModal = !this.showModal;
       }
     },
-    clearInput: function() {
+    clearInput() {
       this.newTodoItem = '';
     }
   },
   components: {
-    Modal: Modal,
+    Modal,
   }
 }
 </script>
