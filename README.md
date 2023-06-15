@@ -13,3 +13,17 @@ vue.js study
 - refactor : 코드 리팩토링
 - test : 테스트 코드, 리팩토링 테스트 코드 추가
 - chore : 빌드 업무 수정, 패키지 매니저 수정
+
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+```
