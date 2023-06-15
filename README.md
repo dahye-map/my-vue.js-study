@@ -6,7 +6,7 @@ vue.js study
 - 파일명은 영어로
 
 # commit rules
-- feat : 새로운 기능 추가
+- update : 새로운 기능 추가
 - fix : 버그 수정, 약간의 수정사항이 있을 때
 - docs : 문서 수정
 - style : 코드 포맷, 세미콜론 누락, 코드 변경이 없는 경우

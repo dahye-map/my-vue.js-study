@@ -28,3 +28,9 @@ action -> dispatcher -> model -> view (한방향 flow)
 - action : 사용자의 입력에 따라 데이터를 변경 method
 컴포넌트 -> 비동기로직 -> 동기로직 -> 상태
 action 에서 axios로 backend 연동에서 사용
+
+### vuex 기술 요소
+- state : 여러 컴포넌트에 공유되는 데이터 data
+- getters : 연산된 state 값을 접근하는 속성 computed
+- mutations : state 값을 변경하는 이벤트 로직, 메서드 methods
+- actions : 비동기 처리 로직을 선언하는 메서드 aysnc methods
