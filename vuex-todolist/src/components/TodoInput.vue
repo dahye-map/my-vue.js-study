@@ -19,20 +19,16 @@ import Modal from './common/Modal.vue';
 export default {
   data() {
     return {
-      //데이터 연동
       newTodoItem: "",
       showModal: false
     }
   },
   methods: {
     addTodo() {
-      // newTodoItem이 무조건 값이 있을 때
       if(this.newTodoItem !== '') {
-        //상위로 보냄
-        this.$emit("addTodoItem", this.newTodoItem)
+        this.$store.commit('addOneItem', this.newTodoItem);
         this.clearInput();
       } else {
-        //값이 없을 때 모달 띄우기
         this.showModal = !this.showModal;
       }
     },

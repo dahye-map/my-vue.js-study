@@ -34,3 +34,23 @@ action 에서 axios로 backend 연동에서 사용
 - getters : 연산된 state 값을 접근하는 속성 computed
 - mutations : state 값을 변경하는 이벤트 로직, 메서드 methods
 - actions : 비동기 처리 로직을 선언하는 메서드 aysnc methods
+데이터 요청, Promise, async과 같은 비동기 처리는 모두 actions에 선언
+
+* mutations는 commit으로 받는다.
+* payload 객체 받는다.
+
+### state는 왜 직접 변경하지 않고 mutations로 변경할까?
+- 여러개의 컴포넌트에서 아래와 같이 state값을 변경하는 경우 어느 컴포넌트에서 해당 state를 변경했는지 추적하기가 어렵다.
+- 뷰의 반응성을 거스르지 않게 명시적으로 상태 변화를 수행한다. 반응성, 디버깅, 테스팅 혜택
+
+
+### 왜 비동기 처리 로직은 actions에 선언해야할까?
+- 언제 어느 컴포넌트에서 해당 state를 호출하고, 변경했는지 확인하기가 어려움
+- state값의 변화를 추적하기 어렵기 때문에 mutations 속성에는 동기 처리 로직만 넣어야한다.
+
+
+### Helper
+- state -> mapState
+- getters -> mapGetters
+- mutations -> mapMutations
+- actions -> mapActions
