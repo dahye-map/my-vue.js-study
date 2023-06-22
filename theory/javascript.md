@@ -91,4 +91,7 @@ async function logTodoTitle() {
 }
 ```
 
+### this에 관해
+- 함수 안 this에서도 window 객체(전역)를 바라보게 됨
+- 'use strict' ???
 
