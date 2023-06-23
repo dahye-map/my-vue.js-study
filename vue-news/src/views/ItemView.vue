@@ -38,19 +38,6 @@ export default {
 }
 </script>
 
-<style scoped>
-.user-container {
-  display:flex;
-  align-items:center;
-  padding: 0.5rem;
-}
-.fa-user {
-  font-size:2.5rem;
-}
-.user-desc {
-  padding-left:8px;
-}
-.user-desc .time {
-  font-size: .7rem;
-}
+<style>
+
 </style>
