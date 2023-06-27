@@ -54,3 +54,9 @@ action 에서 axios로 backend 연동에서 사용
 - getters -> mapGetters
 - mutations -> mapMutations
 - actions -> mapActions
+
+### HOC
+- 하이 오더 컴포넌트
+- 예를 들어 list view가 하는 행동이 같을 때 상위 컴포넌트를 하나 더 만들어서 재활용 로직
+- 라우터의 컴포넌트 수가 줄어드는 장점
+- 단점 : 레벨이 깊어지면서 통신하기 까다로움
