@@ -13,3 +13,8 @@ npm i vue-router@3.5.3 --save
 data created beforeMount
 
 mounted 되고나서 데이터 요청 -> 데이터 받아와서 data 속성 -> 화면 다시 그려지게됨
+
+#### 데이터 호출 시점
+1. 컴포넌트 라이프 사이클 훅
+- created : 컴포넌트가 생성되자마자 호출되는 로직
+2. 라우터 네비게이션 가드
