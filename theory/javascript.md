@@ -2,6 +2,10 @@
 비동기 처리란 특정 코드의 연산이 끝날 때까지 코드의 실행을 멈추지 않고 다음 코드를 먼저 실행하는 자바스크립트의 특성을 의미
 화면에서 서버로 데이터를 요청했을 때 서버가 언제 그 요청에 대한 응답을 줄지도 모르는데 마냥 다른 코드를 실행 안 하고 기다릴 순 없기 때문
 
+settimeout, event listener, ajax 통신
+stack이 빌 때까지 callback queue 에서 기다림
+무조건 stack이 비어야만 실행
+
 
 ### 콜백 함수
 ```
@@ -99,3 +103,23 @@ async function logTodoTitle() {
 - BigInt = typeof bigint
 - parseInt = typeof number
 ???
+
+### Truthy & Falsy
+- falsy한 값(false)
+1. null
+2. undefined
+3. 0, -0, NaN
+4. "" 빈문자열
+----조건식 !변수명 예외처리 방법 
+
+### 비구조화 할당
+let [one, two, three] = arr
+console.log(one, two, three)
+
+= one two three
+배열 선언에서 자체 분리
+
+heap 메모리 할당
+call stack 코드 실행
+
+
