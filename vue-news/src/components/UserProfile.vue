@@ -5,10 +5,12 @@
         <i class="fas fa-user"></i>
       </div>
       <div class="user-desc">
-        <p>
-          {{ userInfo.id }}
-        </p>
-        <p class="time">{{ userInfo.created }}</p>
+        <!-- 상위 컴포넌트에서 정의할 영역 -->
+        <slot name="username"></slot>
+        <div class="time">
+          <slot name="time"></slot>
+          <slot name="karma"></slot>
+        </div>
       </div>
     </div>
   </div>
@@ -16,14 +18,8 @@
 
 <script>
 export default {
-  computed: {
-    userInfo() {
-      return this.$store.state.user;
-    }
-  },
-  created() {
-    const userName = this.$route.params.id;
-    this.$store.dispatch('FETCH_USER', userName);
+  props: {
+    info: Object
   },
 }
 </script>
