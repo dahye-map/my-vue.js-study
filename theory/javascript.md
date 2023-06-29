@@ -122,4 +122,20 @@ console.log(one, two, three)
 heap 메모리 할당
 call stack 코드 실행
 
+### Closure (클로져)
+- 두 개의 함수로 만들어진 환경으로 특별한 객체의 한 종류
+- 외부 함수 호출이 종료되더라도 외부 함수의 지역 변수 및 변수 스코프 객체의 체인 관계를 유지할 수 있는 구조를 클로저라고 합니다.
+- 클로저는 반환된 내부함수가 자신이 선언됐을 때의 환경(Lexical environment)인 스코프를 기억하여 자신이 선언됐을 때의 환경(스코프) 밖에서 호출되어도 그 환경(스코프)에 접근할 수 있는 함수
 
+```
+var color = 'red';
+function foo() {
+    var color = 'blue'; // 2
+    function bar() {
+        console.log(color); // 1
+    }
+    return bar;
+}
+var baz = foo(); // 3
+baz(); // 4 이게 클로저!
+```

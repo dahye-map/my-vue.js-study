@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 변수 선언이 함수 선언보다 높은 우선순위를 가집니다.
+    
+    calculateAge(1999);   // 함수 선언 전에 함수를 호출 -> hoisting 이 되어 잘 작동한다. 
+
+    function calculateAge(year) {  // 함수 선언. 
+      console.log(2020 - year);
+    }
+
+    // retirement(1990);   // 작동하지 않는다
+
+    var retirement = function (year) {     // 함수의 선언 방식이 아니기 떄문에 hoisting 되지 않는다. (only work on function declaration)
+      console.log(65 - (2020 - year));
+    }
+
+    //variables (변수)
+
+    console.log(age); // 작동은 되지만 undefined로 뜬다. (hoisting) -> js 가 변수가 선언되었는지는 알고 있는 것이다. 
+
+    // 변수의 선언만 호이스팅.
+
+    var age = 50;  //global 
+
+    console.log(age);
+
+    function foo() {
+      var age = 65; //local
+      console.log(age);   //local print
+    }
+
+    foo();
+    console.log(age);  // global print
+  </script>
+</body>
+
+</html>
