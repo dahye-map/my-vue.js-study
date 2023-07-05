@@ -1,11 +1,13 @@
 vue create project_name
 
 ```
-npm run serve
+npm i vue@2.6.14
+npm i vue-router@3.5.3
+npm i vuex@3.6.2
 ```
 
 ```
-npm i vue-router@3.5.3 --save
+npm run serve
 ```
 
 
